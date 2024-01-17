@@ -63,74 +63,97 @@ Margin Trading - это продукт, в котором пользовател
 #### Глобальные переменные
 
 **IERC20 public USDC;**
+
 интерфейс для взаимодействия с ERC20 токенами, в данном случае с USDC
 
 **uint256 public balanceX;**
+
 всего внесенных денег от инвесторов, расчет идет в USDC
 
 **uint256 public balanceY;**
+
 всего выпущенных виртуальных токенов, нужно для расчета индивидуальной доли прибыли каждого инвестора
 
 **ICentralAccount public ICA;**
+
 интерфейс для взаимодействия с центральным аккаунтом
 
 **using TransferHelper for IERC20;**
+
 контракт для безопасного перевода токенов ERC20 между контрактами
 
 **uint256 constant USDC_DECIMALS = 10 ** 6;**
+
 константа, показывает количество знаков после запятой, нужна для расчета USDC
 
 **uint256 constant SHARE_DECIMALS = 10 ** 18;**
+
 константа, показывает количество знаков после запятой, нужна для расчета общей доли
 
 **mapping(address => uint256) investorToShare;**
+
 доля прибыли Liquidity Provider’a от всех внесенных денег
 
 #### Функции
 
 **constructor(address _USDC, address _CA, uint256 _amount)**
+
 начальное создание контракта (функция, которая вызывается при deploy контракта)
 
 *address _USDC* - адрес контракта ERC20 токена в основной/тестовой сети (в данном случае USDC)
+
 *address _CA* - адрес центрального аккаунта в основной/тестовой сети
+
 *uint256 _amount* - начальный капитал для контракта Liquidity Pool (Желательно указать как 100 USDC и перевести на центральный аккаунт данную сумму)
 
 **function transferToLP(uint256 _amount) external**
+
 переводит денеги в Liquidity pool (все деньги хранятся на Central account)
 
 *uint256 _amount* - количество денег для перевода (указывать в виде USDC)
 
 **function accrueProfit(uint256 _amount) external**
+
 начисляет полученную прибыть инвесторам (вкладчикам)
 
 *uint256 _amount* - полученная прибыль (подавать в виде USDC)
 
 **function accrueLoss(uint256 _amount) external**
+
 начисляет полученный убыток инвесторам (вкладчикам)
 
 *uint256 _amount* - полученный убыток (подавать в виде USDC)
 
 **function transfer(address _from, address _to, uint256 _amount) internal**
+
 переводит USDC от владельца к определенному адресу (получателю)
 
 *address _from* - адрес владельца USDC
+
 *address _to* - адрес получателя USDC
+
 *uint256 _amount* - количество передаваемых USDC
 
 **function safeTransferFrom(address _token, address _from, address _to, uint256 _amount) internal**
+
 безопасный перевод ERC20 токенов от владельца к получателю
 
 *address _token* - адрес отправляемого токенов ERC20 (в нашем случае USDC)
+
 *address _from* - адрес владельца токенов ERC20 (в нашем случае USDC)
+
 *address _to* - адрес получателя токенов ERC20 (в нашем случае USDC)
+
 *uint256 _amount* - количество передаваемых токенов ERC20 (в нашем случае USDC)
 
 **function withdraw(uint256 _amount) external**
+
 выводит USDC из пула ликвидности на адрес отправителя транзакции
 
 *uint256 _amount* - количество выводимых USDC из пула ликвидности
 
 **function getUserBalance() public view returns (uint256)**
+
 показывает текущий баланс поставщика ликвидности (вкладчика)
 
 ### CentralAccount
