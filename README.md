@@ -60,6 +60,8 @@ Margin Trading - это продукт, в котором пользовател
 
 ### LiquidityPool
 
+контракт для сбора ликвидности, привлечения вкладчиков и получения процента от вложенных USDC
+
 #### Глобальные переменные
 
 **IERC20 public USDC;**
@@ -102,7 +104,7 @@ Margin Trading - это продукт, в котором пользовател
 
 *address _USDC* - адрес контракта ERC20 токена в основной/тестовой сети (в данном случае USDC)
 
-*address _CA* - адрес центрального аккаунта в основной/тестовой сети
+*address _CA* - адрес контракта CentralAccount в основной/тестовой сети
 
 *uint256 _amount* - начальный капитал для контракта Liquidity Pool (Желательно указать как 100 USDC и перевести на центральный аккаунт данную сумму)
 
@@ -158,45 +160,341 @@ Margin Trading - это продукт, в котором пользовател
 
 ### CentralAccount
 
+контракт, которые хранит все USDC и WETH от Трейдеров и Вкладчиков. Дает разрешение трейдерам для кредитования и торговли заемными средствами
+
 #### Глобальные переменные
 
 **address SC;**
+
+адрес контракта SwapContract в основной/тестовой сети
+
+**IERC20 public USDC;**
+
+интерфейс для взаимодействия с ERC20 токенами, в данном случае с USDC
+
+**IERC20 public WETH;**
+
+интерфейс для взаимодействия с ERC20 токенами, в данном случае с WETH
+
+**ILiquidityPool public ILP;**
+
+интерфейс для взаимодействия с контрактом LiquidityPool
+
+**ITraderAccount public ITRA;**
+
+интерфейс для взаимодействия с контрактом TraderAccount
+
+**uint256 public countUSDCOwner;**
+
+USDC владельца контракта, которые были получены с процента прибыли от торговли Трейдеров
+
+**uint256 public countUSDCTraders;**
+
+USDC трейдеров, которые сейчас участвуют в активной торговле
+
+**using TransferHelper for IERC20;**
+
+контракт для безопасного перевода токенов ERC20 между контрактами
+
+**uint16 public ownerProfit = 1000;**
+
+указание процента комиссии, которую получает владелец контракта от полученной прибыли
+
+**uint16 constant COEF_OWNER_PROFIT = 10000;**
+
+константа для перевода ownerProfit в проценты (ownerProfit / COEF_OWNER_PROFIT = процент прибыли владельца контракта)
+
+#### Функции
+
+**constructor(address _USDC, address _WETH) Ownable(msg.sender)**
+
+начальное создание контракта (функция, которая вызывается при deploy контракта)
+
+*address _USDC* - адрес контракта ERC20 токена в основной/тестовой сети (в данном случае USDC)
+
+*address _WETH* - адрес контракта ERC20 токена в основной/тестовой сети (в данном случае WETH)
+
+*Ownable(msg.sender)* - указывает на владельца контракта (автоматически при deploy)
+
+**function setLP(address _LP) external onlyOwner()**
+
+изменяет ссылку для взаимодействия с контрактом LiquidityPool
+
+*address _LP* - адрес на контракт LiquidityPool в основной/тестовой сети
+
+**function setTRA(address _TRA) external onlyOwner()**
+
+изменяет ссылку для взаимодействия с контрактом TraderAccount
+
+*address _TRA* - адрес на контракт TraderAccount в основной/тестовой сети
+
+**function setSC(address _SC) external onlyOwner()**
+
+изменяет ссылку для взаимодействия с контрактом SwapContract
+
+*address _SC* - адрес на контракт SwapContract в основной/тестовой сети
+
+**function setOwnerProfit(uint16 _ownerProfit) external onlyOwner()**
+
+изменяет процент взимаемый с полученной прибыли от торговли Трейдерами
+
+*uint16 _ownerProfit* - удерживаемый процент, который будет получать владелец контракта от прибыли (**указывать не больше COEF_OWNER_PROFIT **)
+
+**function approve(address _token, address _account, uint256 _amount) external**
+
+дает разрешение определенному адресу право на перевод определенного токена ERC20 (Доступно только для LiquidityPool, SwapContract и TraderAccount) 
+
+*address _token* - адрес отправляемого токенов ERC20 (в нашем случае USDC или WETH)
+
+*address _account* - адрес кому доверяется перевод токенов ERC20 (в нашем случае USDC или WETH)
+
+*uint256 _amount* - количество передаваемых токенов ERC20 (в нашем случае USDC или WETH)
+
+**function newProfit(uint256 _amount) internal**
+
+начисляет полученную прибыть инвесторам (вкладчикам) и владельцу контракта, передает вызов в LiquidityPool 
+
+*uint256 _amount* - полученная прибыль (подавать в виде USDC)
+
+**function newLoss(uint256 _amount) internal**
+
+начисляет полученный убыток инвесторам (вкладчикам), передает вызов в LiquidityPool
+
+*uint256 _amount* - полученный убыток (подавать в виде USDC)
+
+**function getTraderDebt(uint256 _amount) external onlyTRA()**
+
+резервирует USDC для торговли Трейдером 
+
+*uint256 _amount* - количество USDC, которое необходимо зарезервировать для торговли Трейдера
+
+**function getCountUSDCTraders() external view returns (uint256)**
+
+возвращает количество USDC, которым сейчас торгуют Трейдеры (подразумевается вызов из внешних контрактов в нашем случае LiquidityPool)
+
+**function returnTraderDebt(uint256 _amount, uint256 _profitOrLoss, bool _PORL) external onlyTRA()**
+
+обрабатывает возвращение долга от трейдера в зависимости от прибыли/убытка торговли 
+
+*uint256 _amount* - возвращаемая сумма долга Трейдера в USDC
+
+*uint256 _profitOrLoss* - число показывающее прибыль/убыток от торговли Трейдера (подавать в виде USDC)
+
+*bool _PORL* - показатель прибыли - true или убытка - false
+
+**function availableUSDC() public view returns(uint256 answer)**
+
+показывает число доступных USDC для выдачи в кредит Трейдерам (результат возвращается в виде значения USDC)
+
+**function withdraw(uint256 _amount) external onlyOwner()**
+
+позволяет создателю контракта снимать полученную прибыль от сделок Трейдеров
+
+*uint256 _amount* - количество USDC, которое необходимо вывести с контракта владельцу
+
+**modifier onlyTRA()**
+
+модификатор, который проверяет возможность вызова функция только для контракта TraderAccount
+
+### RiskManager
+
+контракт, который контролирует выполнение условий Трейдерами и при нарушении ликвидирует позицию
+
+#### Глобальные переменные
+
+**address[] traders;**
+
+**mapping(address => uint256) mapping_traders;**
+
+**ITraderAccount public ITRA;**
+
+**uint16 public HF_ELIMINATE = 10540;**
+
+#### Функции
+
+**constructor(address _TRA) Ownable(msg.sender)**
+
+начальное создание контракта (функция, которая вызывается при deploy контракта)
+
+*address _TRA*
+
+*Ownable(msg.sender)* - указывает на владельца контракта (автоматически при deploy)
+
+**function addTrader(address _trader) external onlyTRA()**
+
+**function getCountTraders() external view returns (uint256)**
+
+**function checkTraders(uint256 _begin, uint256 _end) external view returns (uint256[] memory answer)**
+
+**function checkTradersDay(uint256 _begin, uint256 _end) external view returns (uint256[] memory answer)**
+
+**function eliminate(uint256 _traderId) external returns (uint8)**
+
+**function deleteTrader(address _trader) external onlyTRA()**
+
+**function setHFEliminate(uint16 _new_HF_ELIMINATE) external onlyOwner**
+
+**modifier onlyTRA()**
+
+### SwapContract
+
+контракт, который позволяет Трейдерам взаимодействовать с Uniswap и обменивать WETH на USDC и USDC на WETH
+
+#### Глобальные переменные
+
+**using TransferHelper for IERC20;**
+
+контракт для безопасного перевода токенов ERC20 между контрактами
+
+**IQuoter public constant quoter = IQuoter(0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6);**
+
+**ISwapRouter public constant router = ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);**
+
+**ICentralAccount public ICA;**
+
+интерфейс для взаимодействия с контрактом CentralAcount
+
+**address public TRA;**
+
+адрес на контракт TraderAccount в основной/тестовой сети
+
+**address public USDC;**
+
+адрес на контракт токенов USDC в основной/тестовой сети
+
+**address public WETH;**
+
+адрес на контракт токенов WETH в основной/тестовой сети
+
+**UniswapV2Router02 public constant router02 = UniswapV2Router02(payable(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D));**
+
+#### Функции
+
+**constructor(address _CA, address _TRA, address _USDC, address _WETH) Ownable(msg.sender)**
+
+начальное создание контракта (функция, которая вызывается при deploy контракта)
+
+*address _CA* - адрес контракта CentralAccount в основной/тестовой сети
+
+*address _TRA*
+
+*address _USDC* - адрес контракта ERC20 токена в основной/тестовой сети (в данном случае USDC)
+
+*address _WETH* - адрес контракта ERC20 токена в основной/тестовой сети (в данном случае WETH)
+
+*Ownable(msg.sender)* - указывает на владельца контракта (автоматически при deploy)
+
+**function quoteWETHToUSDC(uint256 _amountIn) external view returns(uint256)**
+
+**function swapWETHToUSDC(uint256 _amountIn, uint256 _amountOutMinimum) external returns(uint256 amountOut)**
+
+**function swapUSDCToWETH(uint256 _amountIn, uint256 _amountOutMinimum) external returns(uint256 amountOut)**
+
+### TraderAccount
+
+контракт, который предоставляет возможность Трейдерам получить заемные средства и торговать ими на Uniswap
+
+#### Глобальные переменные
+
+**mapping(address => uint256) traderToUSDC;**
+
+**mapping(address => uint256) traderToWEther;**
+
+**mapping(address => uint256) traderToDebt;**
+
+**mapping(address => uint256) traderToTime;**
+
+**IRiskManager public IRM;**
+
+**ISwapContract public ISC;**
+
+**ICentralAccount public ICA;**
 
 **IERC20 public USDC;**
 
 **IERC20 public WETH;**
 
-**ILiquidityPool public ILP;**
+**uint16 public debtInterest = 200;**
 
-**ITraderAccount public ITRA;**
+**uint16 constant HF_DECIMALS = 10 ** 4;**
 
-**uint256 public countUSDCOwner;**
+**uint16 constant COEF_DEBT_INTEREST = 10000;**
 
-**uint256 public countUSDCTraders;**
-
-**using TransferHelper for IERC20;**
-контракт для безопасного перевода токенов ERC20 между контрактами
-
-**uint16 public ownerProfit = 1000;**
-
-**uint16 constant COEF_OWNER_PROFIT = 10000;**
+**uint8 constant COEF_DEBT = 10;**
 
 #### Функции
 
-### RiskManager
+**constructor(address _USDC, address _WETH, address _CA) Ownable(msg.sender)**
 
-#### Глобальные переменные
+начальное создание контракта (функция, которая вызывается при deploy контракта)
 
-#### Функции
+*address _USDC* - адрес контракта ERC20 токена в основной/тестовой сети (в данном случае USDC)
 
-### SwapContract
+*address _WETH* - адрес контракта ERC20 токена в основной/тестовой сети (в данном случае WETH)
 
-#### Глобальные переменные
+*address _CA* - адрес контракта CentralAccount в основной/тестовой сети
 
-#### Функции
+*Ownable(msg.sender)* - указывает на владельца контракта (автоматически при deploy)
 
-### TraderAccount
+**function setRiskManager(address _RM) external onlyOwner()**
 
-#### Глобальные переменные
+**function setSwapContract(address _SC) external onlyOwner()**
 
-#### Функции
+**function setDebtInterest(uint16 _newDebtInterest) external onlyOwner()**
+
+**function transferToTraderUSDC(uint256 _amount) external**
+
+**function transferDebtFromCA(uint256 _amount) external**
+
+**function transferDebtToCA() external**
+
+**function transfer(address _from, address _to, uint256 _amount) internal**
+
+переводит USDC от владельца к определенному адресу (получателю)
+
+*address _from* - адрес владельца USDC
+
+*address _to* - адрес получателя USDC
+
+*uint256 _amount* - количество передаваемых USDC
+
+**function safeTransferFrom(address _token, address _from, address _to, uint256 _amount) internal**
+
+безопасный перевод ERC20 токенов от владельца к получателю
+
+*address _token* - адрес отправляемого токенов ERC20 (в нашем случае USDC)
+
+*address _from* - адрес владельца токенов ERC20 (в нашем случае USDC)
+
+*address _to* - адрес получателя токенов ERC20 (в нашем случае USDC)
+
+*uint256 _amount* - количество передаваемых токенов ERC20 (в нашем случае USDC)
+
+**function withdrawUSDC(uint256 _amount) external**
+
+выводит USDC с аккаунта Трейдера на адрес отправителя транзакции
+
+*uint256 _amount* - количество выводимых USDC
+
+**function getUserBalanceUSDC() public view returns (uint256)**
+
+**function getUserBalanceUSDCWithoutDebt() public view returns (uint256)**
+
+**function getUserDebt() public view returns (uint256)**
+
+**function getUserBalanceWEther() public view returns (uint256)**
+
+**function getAccountValueInUSDC(address _trader) public view returns (uint256)**
+
+**function eliminate(address _traderKill) external onlyRM()**
+
+**function getHF(address _trader) external view returns (uint256 _HF)**
+
+**function getDayDebt(address _trader) external view returns (uint256 _days)**
+
+**function swapUSDCToWETH(uint256 _amount, uint256 _amountOutMinimum) public**
+
+**function swapWETHToUSDC(uint256 _amount, uint256 _amountOutMinimum) public**
+
+**modifier onlyRM()**
+
