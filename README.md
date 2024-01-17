@@ -64,41 +64,41 @@ Margin Trading - это продукт, в котором пользовател
 
 #### Глобальные переменные
 
-**IERC20 public USDC;**
+```IERC20 public USDC;```
 
 интерфейс для взаимодействия с ERC20 токенами, в данном случае с USDC
 
-**uint256 public balanceX;**
+```uint256 public balanceX;```
 
 всего внесенных денег от инвесторов, расчет идет в USDC
 
-**uint256 public balanceY;**
+```uint256 public balanceY;```
 
 всего выпущенных виртуальных токенов, нужно для расчета индивидуальной доли прибыли каждого инвестора
 
-**ICentralAccount public ICA;**
+```ICentralAccount public ICA;```
 
 интерфейс для взаимодействия с центральным аккаунтом
 
-**using TransferHelper for IERC20;**
+```using TransferHelper for IERC20;```
 
 контракт для безопасного перевода токенов ERC20 между контрактами
 
-**uint256 constant USDC_DECIMALS = 10 ** 6;**
+```uint256 constant USDC_DECIMALS = 10 ** 6;```
 
 константа, показывает количество знаков после запятой, нужна для расчета USDC
 
-**uint256 constant SHARE_DECIMALS = 10 ** 18;**
+```uint256 constant SHARE_DECIMALS = 10 ** 18;```
 
 константа, показывает количество знаков после запятой, нужна для расчета общей доли
 
-**mapping(address => uint256) investorToShare;**
+```mapping(address => uint256) investorToShare;```
 
 доля прибыли Liquidity Provider’a от всех внесенных денег
 
 #### Функции
 
-**constructor(address _USDC, address _CA, uint256 _amount)**
+```constructor(address _USDC, address _CA, uint256 _amount)```
 
 начальное создание контракта (функция, которая вызывается при deploy контракта)
 
@@ -108,25 +108,25 @@ Margin Trading - это продукт, в котором пользовател
 
 *uint256 _amount* - начальный капитал для контракта Liquidity Pool (Желательно указать как 100 USDC и перевести на центральный аккаунт данную сумму)
 
-**function transferToLP(uint256 _amount) external**
+```function transferToLP(uint256 _amount) external```
 
 переводит денеги в Liquidity pool (все деньги хранятся на Central account)
 
 *uint256 _amount* - количество денег для перевода (указывать в виде USDC)
 
-**function accrueProfit(uint256 _amount) external**
+```function accrueProfit(uint256 _amount) external```
 
 начисляет полученную прибыть инвесторам (вкладчикам)
 
 *uint256 _amount* - полученная прибыль (подавать в виде USDC)
 
-**function accrueLoss(uint256 _amount) external**
+```function accrueLoss(uint256 _amount) external```
 
 начисляет полученный убыток инвесторам (вкладчикам)
 
 *uint256 _amount* - полученный убыток (подавать в виде USDC)
 
-**function transfer(address _from, address _to, uint256 _amount) internal**
+```function transfer(address _from, address _to, uint256 _amount) internal```
 
 переводит USDC от владельца к определенному адресу (получателю)
 
@@ -136,7 +136,7 @@ Margin Trading - это продукт, в котором пользовател
 
 *uint256 _amount* - количество передаваемых USDC
 
-**function safeTransferFrom(address _token, address _from, address _to, uint256 _amount) internal**
+```function safeTransferFrom(address _token, address _from, address _to, uint256 _amount) internal```
 
 безопасный перевод ERC20 токенов от владельца к получателю
 
@@ -148,13 +148,13 @@ Margin Trading - это продукт, в котором пользовател
 
 *uint256 _amount* - количество передаваемых токенов ERC20 (в нашем случае USDC)
 
-**function withdraw(uint256 _amount) external**
+```function withdraw(uint256 _amount) external```
 
 выводит USDC из пула ликвидности на адрес отправителя транзакции
 
 *uint256 _amount* - количество выводимых USDC из пула ликвидности
 
-**function getUserBalance() public view returns (uint256)**
+```function getUserBalance() public view returns (uint256)```
 
 показывает текущий баланс поставщика ликвидности (вкладчика)
 
@@ -164,49 +164,49 @@ Margin Trading - это продукт, в котором пользовател
 
 #### Глобальные переменные
 
-**address SC;**
+```address SC;```
 
 адрес контракта SwapContract в основной/тестовой сети
 
-**IERC20 public USDC;**
+```IERC20 public USDC;```
 
 интерфейс для взаимодействия с ERC20 токенами, в данном случае с USDC
 
-**IERC20 public WETH;**
+```IERC20 public WETH;```
 
 интерфейс для взаимодействия с ERC20 токенами, в данном случае с WETH
 
-**ILiquidityPool public ILP;**
+```ILiquidityPool public ILP;```
 
 интерфейс для взаимодействия с контрактом LiquidityPool
 
-**ITraderAccount public ITRA;**
+```ITraderAccount public ITRA;```
 
 интерфейс для взаимодействия с контрактом TraderAccount
 
-**uint256 public countUSDCOwner;**
+```uint256 public countUSDCOwner;```
 
 USDC владельца контракта, которые были получены с процента прибыли от торговли Трейдеров
 
-**uint256 public countUSDCTraders;**
+```uint256 public countUSDCTraders;```
 
 USDC трейдеров, которые сейчас участвуют в активной торговле
 
-**using TransferHelper for IERC20;**
+```using TransferHelper for IERC20;```
 
 контракт для безопасного перевода токенов ERC20 между контрактами
 
-**uint16 public ownerProfit = 1000;**
+```uint16 public ownerProfit = 1000;```
 
 указание процента комиссии, которую получает владелец контракта от полученной прибыли
 
-**uint16 constant COEF_OWNER_PROFIT = 10000;**
+```uint16 constant COEF_OWNER_PROFIT = 10000;```
 
 константа для перевода ownerProfit в проценты (ownerProfit / COEF_OWNER_PROFIT = процент прибыли владельца контракта)
 
 #### Функции
 
-**constructor(address _USDC, address _WETH) Ownable(msg.sender)**
+```constructor(address _USDC, address _WETH) Ownable(msg.sender)```
 
 начальное создание контракта (функция, которая вызывается при deploy контракта)
 
@@ -216,31 +216,31 @@ USDC трейдеров, которые сейчас участвуют в ак�
 
 *Ownable(msg.sender)* - указывает на владельца контракта (автоматически при deploy)
 
-**function setLP(address _LP) external onlyOwner()**
+```function setLP(address _LP) external onlyOwner()```
 
 изменяет ссылку для взаимодействия с контрактом LiquidityPool
 
 *address _LP* - адрес на контракт LiquidityPool в основной/тестовой сети
 
-**function setTRA(address _TRA) external onlyOwner()**
+```function setTRA(address _TRA) external onlyOwner()```
 
 изменяет ссылку для взаимодействия с контрактом TraderAccount
 
 *address _TRA* - адрес на контракт TraderAccount в основной/тестовой сети
 
-**function setSC(address _SC) external onlyOwner()**
+```function setSC(address _SC) external onlyOwner()```
 
 изменяет ссылку для взаимодействия с контрактом SwapContract
 
 *address _SC* - адрес на контракт SwapContract в основной/тестовой сети
 
-**function setOwnerProfit(uint16 _ownerProfit) external onlyOwner()**
+```function setOwnerProfit(uint16 _ownerProfit) external onlyOwner()```
 
 изменяет процент взимаемый с полученной прибыли от торговли Трейдерами
 
 *uint16 _ownerProfit* - удерживаемый процент, который будет получать владелец контракта от прибыли (**указывать не больше COEF_OWNER_PROFIT **)
 
-**function approve(address _token, address _account, uint256 _amount) external**
+```function approve(address _token, address _account, uint256 _amount) external```
 
 дает разрешение определенному адресу право на перевод определенного токена ERC20 (Доступно только для LiquidityPool, SwapContract и TraderAccount) 
 
@@ -250,29 +250,29 @@ USDC трейдеров, которые сейчас участвуют в ак�
 
 *uint256 _amount* - количество передаваемых токенов ERC20 (в нашем случае USDC или WETH)
 
-**function newProfit(uint256 _amount) internal**
+```function newProfit(uint256 _amount) internal```
 
 начисляет полученную прибыть инвесторам (вкладчикам) и владельцу контракта, передает вызов в LiquidityPool 
 
 *uint256 _amount* - полученная прибыль (подавать в виде USDC)
 
-**function newLoss(uint256 _amount) internal**
+```function newLoss(uint256 _amount) internal```
 
 начисляет полученный убыток инвесторам (вкладчикам), передает вызов в LiquidityPool
 
 *uint256 _amount* - полученный убыток (подавать в виде USDC)
 
-**function getTraderDebt(uint256 _amount) external onlyTRA()**
+```function getTraderDebt(uint256 _amount) external onlyTRA()```
 
 резервирует USDC для торговли Трейдером 
 
 *uint256 _amount* - количество USDC, которое необходимо зарезервировать для торговли Трейдера
 
-**function getCountUSDCTraders() external view returns (uint256)**
+```function getCountUSDCTraders() external view returns (uint256)```
 
 возвращает количество USDC, которым сейчас торгуют Трейдеры (подразумевается вызов из внешних контрактов в нашем случае LiquidityPool)
 
-**function returnTraderDebt(uint256 _amount, uint256 _profitOrLoss, bool _PORL) external onlyTRA()**
+```function returnTraderDebt(uint256 _amount, uint256 _profitOrLoss, bool _PORL) external onlyTRA()```
 
 обрабатывает возвращение долга от трейдера в зависимости от прибыли/убытка торговли 
 
@@ -282,17 +282,17 @@ USDC трейдеров, которые сейчас участвуют в ак�
 
 *bool _PORL* - показатель прибыли - true или убытка - false
 
-**function availableUSDC() public view returns(uint256 answer)**
+```function availableUSDC() public view returns(uint256 answer)```
 
 показывает число доступных USDC для выдачи в кредит Трейдерам (результат возвращается в виде значения USDC)
 
-**function withdraw(uint256 _amount) external onlyOwner()**
+```function withdraw(uint256 _amount) external onlyOwner()```
 
 позволяет создателю контракта снимать полученную прибыль от сделок Трейдеров
 
 *uint256 _amount* - количество USDC, которое необходимо вывести с контракта владельцу
 
-**modifier onlyTRA()**
+```modifier onlyTRA()```
 
 модификатор, который проверяет возможность вызова функция только для контракта TraderAccount
 
@@ -302,39 +302,79 @@ USDC трейдеров, которые сейчас участвуют в ак�
 
 #### Глобальные переменные
 
-**address[] traders;**
+```address[] traders;```
 
-**mapping(address => uint256) mapping_traders;**
+массив всех Трейдеров, у которых сейчас есть не закрытый кредит
 
-**ITraderAccount public ITRA;**
+```mapping(address => uint256) mapping_traders;```
 
-**uint16 public HF_ELIMINATE = 10540;**
+словарь хранит индекс на массив Трейдеров по их адресу 
+
+```ITraderAccount public ITRA;```
+
+интерфейс для взаимодействия с контрактом TraderAccount
+
+```uint16 public HF_ELIMINATE = 10540;```
+
+число, при котором будет вызвана функция ликвидации аккаунта Трейдера
 
 #### Функции
 
-**constructor(address _TRA) Ownable(msg.sender)**
+```constructor(address _TRA) Ownable(msg.sender)```
 
 начальное создание контракта (функция, которая вызывается при deploy контракта)
 
-*address _TRA*
+*address _TRA* - адрес на контракт TraderAccount в основной/тестовой сети
 
 *Ownable(msg.sender)* - указывает на владельца контракта (автоматически при deploy)
 
-**function addTrader(address _trader) external onlyTRA()**
+```function addTrader(address _trader) external onlyTRA()```
 
-**function getCountTraders() external view returns (uint256)**
+добавляет Трейдера на отслеживание и проверки его на ликвидацию
 
-**function checkTraders(uint256 _begin, uint256 _end) external view returns (uint256[] memory answer)**
+*address _trader* - адрес на кошелек трейдера в TraderAccount
 
-**function checkTradersDay(uint256 _begin, uint256 _end) external view returns (uint256[] memory answer)**
+```function getCountTraders() external view returns (uint256)```
 
-**function eliminate(uint256 _traderId) external returns (uint8)**
+возвращает количество трейдеров, у которых сейчас имеется кредит
 
-**function deleteTrader(address _trader) external onlyTRA()**
+```function checkTraders(uint256 _begin, uint256 _end) external view returns (uint256[] memory answer)```
 
-**function setHFEliminate(uint16 _new_HF_ELIMINATE) external onlyOwner**
+возвращает массив из диапазона со значением HF для указанных Трейдеров
 
-**modifier onlyTRA()**
+*uint256 _begin* - начальное число, от которого будут перебираться Трейдеры (начинает с 0)
+
+*uint256 _end* - конечное число, до которого будут перебираться Трейдеры (не включительно)
+
+```function checkTradersDay(uint256 _begin, uint256 _end) external view returns (uint256[] memory answer)```
+
+возвращает массив из диапазона со значением прошедших дней после кредитования для указанных Трейдеров
+
+*uint256 _begin* - начальное число, от которого будут перебираться Трейдеры (начинает с 0)
+
+*uint256 _end* - конечное число, до которого будут перебираться Трейдеры (не включительно)
+
+```function eliminate(uint256 _traderId) external returns (uint8)```
+
+ликвидирует конкретного Трейдера по его индексу в массиве, передает вызов ликвидации в TraderAccount 
+
+*uint256 _traderId* - индекс в массиве Трейдеров с кредитами
+
+```function deleteTrader(address _trader) external onlyTRA()```
+
+удаляет из массива Трейдера с кредитом 
+
+*address _trader* - адрес кошелька Трейдера из TraderAccount
+
+```function setHFEliminate(uint16 _new_HF_ELIMINATE) external onlyOwner```
+
+изменение минимального значения, при котором происходит ликвидация позиций Трейдера 
+
+*uint16 _new_HF_ELIMINATE* - процент, который считается по следующей формуле: Текущая стоимость аккаунта в USDC / сумма выданная в кредит USDC (учитывается до 4 знаков после запятой)
+
+```modifier onlyTRA()```
+
+модификатор, который указывает возможность вызова функций только для контракта TraderAccount
 
 ### SwapContract
 
@@ -342,35 +382,35 @@ USDC трейдеров, которые сейчас участвуют в ак�
 
 #### Глобальные переменные
 
-**using TransferHelper for IERC20;**
+```using TransferHelper for IERC20;```
 
 контракт для безопасного перевода токенов ERC20 между контрактами
 
-**IQuoter public constant quoter = IQuoter(0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6);**
+```IQuoter public constant quoter = IQuoter(0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6);```
 
-**ISwapRouter public constant router = ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);**
+```ISwapRouter public constant router = ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);```
 
-**ICentralAccount public ICA;**
+```ICentralAccount public ICA;```
 
 интерфейс для взаимодействия с контрактом CentralAcount
 
-**address public TRA;**
+```address public TRA;```
 
 адрес на контракт TraderAccount в основной/тестовой сети
 
-**address public USDC;**
+```address public USDC;```
 
 адрес на контракт токенов USDC в основной/тестовой сети
 
-**address public WETH;**
+```address public WETH;```
 
 адрес на контракт токенов WETH в основной/тестовой сети
 
-**UniswapV2Router02 public constant router02 = UniswapV2Router02(payable(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D));**
+```UniswapV2Router02 public constant router02 = UniswapV2Router02(payable(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D));```
 
 #### Функции
 
-**constructor(address _CA, address _TRA, address _USDC, address _WETH) Ownable(msg.sender)**
+```constructor(address _CA, address _TRA, address _USDC, address _WETH) Ownable(msg.sender)```
 
 начальное создание контракта (функция, которая вызывается при deploy контракта)
 
@@ -384,11 +424,11 @@ USDC трейдеров, которые сейчас участвуют в ак�
 
 *Ownable(msg.sender)* - указывает на владельца контракта (автоматически при deploy)
 
-**function quoteWETHToUSDC(uint256 _amountIn) external view returns(uint256)**
+```function quoteWETHToUSDC(uint256 _amountIn) external view returns(uint256)```
 
-**function swapWETHToUSDC(uint256 _amountIn, uint256 _amountOutMinimum) external returns(uint256 amountOut)**
+```function swapWETHToUSDC(uint256 _amountIn, uint256 _amountOutMinimum) external returns(uint256 amountOut)```
 
-**function swapUSDCToWETH(uint256 _amountIn, uint256 _amountOutMinimum) external returns(uint256 amountOut)**
+```function swapUSDCToWETH(uint256 _amountIn, uint256 _amountOutMinimum) external returns(uint256 amountOut)```
 
 ### TraderAccount
 
@@ -396,35 +436,35 @@ USDC трейдеров, которые сейчас участвуют в ак�
 
 #### Глобальные переменные
 
-**mapping(address => uint256) traderToUSDC;**
+```mapping(address => uint256) traderToUSDC;```
 
-**mapping(address => uint256) traderToWEther;**
+```mapping(address => uint256) traderToWEther;```
 
-**mapping(address => uint256) traderToDebt;**
+```mapping(address => uint256) traderToDebt;```
 
-**mapping(address => uint256) traderToTime;**
+```mapping(address => uint256) traderToTime;```
 
-**IRiskManager public IRM;**
+```IRiskManager public IRM;```
 
-**ISwapContract public ISC;**
+```ISwapContract public ISC;```
 
-**ICentralAccount public ICA;**
+```ICentralAccount public ICA;```
 
-**IERC20 public USDC;**
+```IERC20 public USDC;```
 
-**IERC20 public WETH;**
+```IERC20 public WETH;```
 
-**uint16 public debtInterest = 200;**
+```uint16 public debtInterest = 200;```
 
-**uint16 constant HF_DECIMALS = 10 ** 4;**
+```uint16 constant HF_DECIMALS = 10 ** 4;```
 
-**uint16 constant COEF_DEBT_INTEREST = 10000;**
+```uint16 constant COEF_DEBT_INTEREST = 10000;```
 
-**uint8 constant COEF_DEBT = 10;**
+```uint8 constant COEF_DEBT = 10;```
 
 #### Функции
 
-**constructor(address _USDC, address _WETH, address _CA) Ownable(msg.sender)**
+```constructor(address _USDC, address _WETH, address _CA) Ownable(msg.sender)```
 
 начальное создание контракта (функция, которая вызывается при deploy контракта)
 
@@ -436,19 +476,19 @@ USDC трейдеров, которые сейчас участвуют в ак�
 
 *Ownable(msg.sender)* - указывает на владельца контракта (автоматически при deploy)
 
-**function setRiskManager(address _RM) external onlyOwner()**
+```function setRiskManager(address _RM) external onlyOwner()```
 
-**function setSwapContract(address _SC) external onlyOwner()**
+```function setSwapContract(address _SC) external onlyOwner()```
 
-**function setDebtInterest(uint16 _newDebtInterest) external onlyOwner()**
+```function setDebtInterest(uint16 _newDebtInterest) external onlyOwner()```
 
-**function transferToTraderUSDC(uint256 _amount) external**
+```function transferToTraderUSDC(uint256 _amount) external```
 
-**function transferDebtFromCA(uint256 _amount) external**
+```function transferDebtFromCA(uint256 _amount) external```
 
-**function transferDebtToCA() external**
+```function transferDebtToCA() external```
 
-**function transfer(address _from, address _to, uint256 _amount) internal**
+```function transfer(address _from, address _to, uint256 _amount) internal```
 
 переводит USDC от владельца к определенному адресу (получателю)
 
@@ -458,7 +498,7 @@ USDC трейдеров, которые сейчас участвуют в ак�
 
 *uint256 _amount* - количество передаваемых USDC
 
-**function safeTransferFrom(address _token, address _from, address _to, uint256 _amount) internal**
+```function safeTransferFrom(address _token, address _from, address _to, uint256 _amount) internal```
 
 безопасный перевод ERC20 токенов от владельца к получателю
 
@@ -470,31 +510,31 @@ USDC трейдеров, которые сейчас участвуют в ак�
 
 *uint256 _amount* - количество передаваемых токенов ERC20 (в нашем случае USDC)
 
-**function withdrawUSDC(uint256 _amount) external**
+```function withdrawUSDC(uint256 _amount) external```
 
 выводит USDC с аккаунта Трейдера на адрес отправителя транзакции
 
 *uint256 _amount* - количество выводимых USDC
 
-**function getUserBalanceUSDC() public view returns (uint256)**
+```function getUserBalanceUSDC() public view returns (uint256)```
 
-**function getUserBalanceUSDCWithoutDebt() public view returns (uint256)**
+```function getUserBalanceUSDCWithoutDebt() public view returns (uint256)```
 
-**function getUserDebt() public view returns (uint256)**
+```function getUserDebt() public view returns (uint256)```
 
-**function getUserBalanceWEther() public view returns (uint256)**
+```function getUserBalanceWEther() public view returns (uint256)```
 
-**function getAccountValueInUSDC(address _trader) public view returns (uint256)**
+```function getAccountValueInUSDC(address _trader) public view returns (uint256)```
 
-**function eliminate(address _traderKill) external onlyRM()**
+```function eliminate(address _traderKill) external onlyRM()```
 
-**function getHF(address _trader) external view returns (uint256 _HF)**
+```function getHF(address _trader) external view returns (uint256 _HF)```
 
-**function getDayDebt(address _trader) external view returns (uint256 _days)**
+```function getDayDebt(address _trader) external view returns (uint256 _days)```
 
-**function swapUSDCToWETH(uint256 _amount, uint256 _amountOutMinimum) public**
+```function swapUSDCToWETH(uint256 _amount, uint256 _amountOutMinimum) public```
 
-**function swapWETHToUSDC(uint256 _amount, uint256 _amountOutMinimum) public**
+```function swapWETHToUSDC(uint256 _amount, uint256 _amountOutMinimum) public```
 
-**modifier onlyRM()**
+```modifier onlyRM()```
 
