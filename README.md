@@ -108,6 +108,10 @@ Margin Trading - это продукт, в котором пользовател
 
 *uint256 _amount* - начальный капитал для контракта Liquidity Pool (Желательно указать как 100 USDC и перевести на центральный аккаунт данную сумму)
 
+```function getBalanceLiquidityPool() external view returns(uint256)```
+
+возвращает общую сумму USDC находящуюся на контракте Liquidity pool (предназначен для получения значения другими контрактами)
+
 ```function transferToLP(uint256 _amount) external```
 
 переводит денеги в Liquidity pool (все деньги хранятся на Central account)
