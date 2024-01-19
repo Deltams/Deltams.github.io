@@ -537,7 +537,7 @@ export default class TraderAccount extends Component {
                   6
                 );
 
-                currentMarginLevel = userHF - ethers.formatUnits("1", 4);
+                currentMarginLevel = userHF - ethers.parseUnits("1", 4);
                 currentMarginLevel = ethers.formatUnits(
                   currentMarginLevel.toString(),
                   2
@@ -857,7 +857,7 @@ export default class TraderAccount extends Component {
                   userLiquidityPrice.toString(),
                   6
                 );
-                currentMarginLevel = userHF - ethers.formatUnits("1", 4);
+                currentMarginLevel = userHF - ethers.parseUnits("1", 4);
                 currentMarginLevel = ethers.formatUnits(
                   currentMarginLevel.toString(),
                   2
@@ -1041,7 +1041,7 @@ export default class TraderAccount extends Component {
                   userLiquidityPrice.toString(),
                   6
                 );
-                currentMarginLevel = userHF - ethers.formatUnits("1", 4);
+                currentMarginLevel = userHF - ethers.parseUnits("1", 4);
                 currentMarginLevel = ethers.formatUnits(
                   currentMarginLevel.toString(),
                   2
@@ -1243,7 +1243,7 @@ export default class TraderAccount extends Component {
                   userLiquidityPrice.toString(),
                   6
                 );
-                currentMarginLevel = userHF - ethers.formatUnits("1", 4);
+                currentMarginLevel = userHF - ethers.parseUnits("1", 4);
                 currentMarginLevel = ethers.formatUnits(
                   currentMarginLevel.toString(),
                   2
