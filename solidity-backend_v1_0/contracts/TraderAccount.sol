@@ -21,7 +21,7 @@ interface ICentralAccount {
 }
 
 interface ISwapContract {
-    function quoteWETHToUSDC(uint256 _amountIn) external view returns(uint256 amountOut);
+    function quoteWETHToUSDC(uint256 _amountIn) external returns(uint256 amountOut);
 
     function swapUSDCToWETH(uint256 _amountIn, uint256 _amountOutMinimum) external returns(uint256 amountOut);
 
@@ -120,7 +120,7 @@ contract TraderAccount is Ownable {
         return traderToUSDC[msg.sender];
     }
 
-    function getUserBalanceUSDCWithoutDebt() public view returns (uint256) {
+    function getUserBalanceUSDCWithoutDebt() public returns (uint256) {
         uint256 accountValueUSDC = this.getAccountValueInUSDC(msg.sender);
         require(traderToDebt[msg.sender] <=  accountValueUSDC, "The cost of the USDC account is lower than the loan issued!");
         return accountValueUSDC - traderToDebt[msg.sender];
@@ -135,7 +135,7 @@ contract TraderAccount is Ownable {
     }
 
     // Получить текущую стоимость аккаунта в USDC
-    function getAccountValueInUSDC(address _trader) public view returns (uint256) {
+    function getAccountValueInUSDC(address _trader) public returns (uint256) {
         uint256 WETHInUSDC = ISC.quoteWETHToUSDC(traderToWEther[_trader]);
         return WETHInUSDC + traderToUSDC[_trader]; 
     }
@@ -156,7 +156,7 @@ contract TraderAccount is Ownable {
     }
 
     // Оценка риска ликвидации
-    function getHF(address _trader) external view returns (uint256 _HF) {
+    function getHF(address _trader) external returns (uint256 _HF) {
         require(traderToDebt[_trader] > 0, "You have no debt, it is impossible to calculate the risk!");
         _HF = uint128(this.getAccountValueInUSDC(_trader) * HF_DECIMALS / traderToDebt[_trader]);
         return _HF; // Если HF <= 1.05 вызывать eliminate
