@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts\LiquidityPool.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> LiquidityPool.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>19/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.5% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>14/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>9/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>32/32</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">57×</span>
+<span class="cline-any cline-yes">57×</span>
+<span class="cline-any cline-yes">57×</span>
+<span class="cline-any cline-yes">57×</span>
+<span class="cline-any cline-yes">57×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">57×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+&nbsp;
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@uniswap/v3-periphery/contracts/libraries/TransferHelper.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+&nbsp;
+interface ICentralAccount {
+    function approve(address _token, address _account, uint256 _amount) external;
+    function getCountUSDCTraders() external view returns (uint256);
+}
+&nbsp;
+contract LiquidityPool is Ownable {
+    using TransferHelper for IERC20;    
+    mapping(address =&gt; uint256) investorToShare; // investor to share
+    ICentralAccount public ICA;
+    IERC20 public USDC; // USDC
+    uint256 public balanceX; // balance of contract in 1e6
+    uint256 public balanceY; // balance of contract in 1e18 total shares
+    uint256 constant SHARE_DECIMALS = 10 ** 18;
+    uint256 constant USDC_DECIMALS = 10 ** 6;
+&nbsp;
+    constructor(address _USDC, address _CA, uint256 _amount) Ownable(msg.sender) {
+        require(_amount &gt; 0, "More amount!");
+        USDC = IERC20(_USDC);
+        ICA = ICentralAccount(_CA);
+        balanceX = _amount;
+        balanceY = _amount * SHARE_DECIMALS / USDC_DECIMALS;
+    }
+&nbsp;
+    function getBalanceLiquidityPool() external view returns(uint256) {
+        return balanceX;
+    }
+&nbsp;
+    function transferToLP(uint256 _amount) external {
+        require(balanceX &gt; 0, "Ask the contract owner to increase the amount of money on the contract!");
+        uint256 newY = balanceY * _amount / balanceX;
+        investorToShare[msg.sender] += newY; // % 18
+        balanceY = balanceY + newY;
+        balanceX = balanceX + _amount;
+        transfer(msg.sender, address(ICA), _amount);
+    }
+&nbsp;
+    function accrueProfit(uint256 _amount) external {
+        require(msg.sender == address(ICA), "Only the central account can indicate income!");
+        balanceX = balanceX + _amount;
+    }
+&nbsp;
+    function accrueLoss(uint256 _amount) external {
+        require(msg.sender == address(ICA), "Only the central account can indicate a loss!");
+        if (balanceX &lt; _amount) {
+            balanceX = 0;
+        } else {
+            balanceX = balanceX - _amount;
+        }
+    }
+&nbsp;
+    function transfer(
+        address _from,
+        address _to,
+        uint256 _amount
+    ) internal {
+        // Transfer the token from the user to the smart contract
+        USDC.transferFrom(_from, _to, _amount);
+    }
+&nbsp;
+    function safeTransferFrom(
+        address _token,
+        address _from,
+        address _to,
+        uint256 _amount
+    ) internal {
+        TransferHelper.safeTransferFrom(_token, _from, _to, _amount);
+    }
+&nbsp;
+    function withdraw(uint256 _amount) external {
+        uint256 investorUSDC = investorToShare[msg.sender] * balanceX / balanceY;
+        require(_amount &lt;= investorUSDC, "There are not enough funds to withdraw! Are you trying to withdraw more USDC than you have.");
+        uint256 balanceCA = USDC.balanceOf(address(ICA));
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(_amount &lt;= balanceCA, "At the moment, there is not enough money on the contract to withdraw this amount!");
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(ICA.getCountUSDCTraders() &lt;= balanceCA - _amount, "You cannot withdraw this amount, as it is currently being traded!");
+        uint256 whithdrawShare = balanceY * _amount / balanceX; // % 18
+        investorToShare[msg.sender] -= whithdrawShare;
+        balanceY = balanceY - whithdrawShare;
+        balanceX = balanceX - _amount;
+        ICA.approve(address(USDC), address(this), _amount);
+        safeTransferFrom(address(USDC), address(ICA), msg.sender, _amount);
+    }
+&nbsp;
+    // This function returns number of tokens in the smart contract
+    function getUserBalance() public view returns (uint256) {
+        return investorToShare[msg.sender] * balanceX / balanceY;
+    }
+&nbsp;
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jan 19 2024 16:43:17 GMT+0800 (Иркутск, стандартное время)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

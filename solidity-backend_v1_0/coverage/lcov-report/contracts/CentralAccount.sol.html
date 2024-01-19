@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts\CentralAccount.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> CentralAccount.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>19/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.22% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>35/36</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>14/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>32/32</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+&nbsp;
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@uniswap/v3-periphery/contracts/libraries/TransferHelper.sol";
+&nbsp;
+interface ILiquidityPool {
+    function accrueProfit(uint256 _amount) external;
+&nbsp;
+    function accrueLoss(uint256 _amount) external;
+&nbsp;
+    function getBalanceLiquidityPool() external view returns(uint256);
+}
+&nbsp;
+interface ITraderAccount {
+    function accrueProfit(uint256 _amount) external;
+}
+&nbsp;
+contract CentralAccount is Ownable {
+    using TransferHelper for IERC20;
+    address SC; // swap contract   
+    ILiquidityPool public ILP; // liqudity pool
+    ITraderAccount public ITRA; // Trader account
+    IERC20 public USDC; // USDC
+    IERC20 public WETH; // WETH
+    uint256 public countUSDCTraders;
+    uint256 public countUSDCOwner;
+    uint16 public ownerProfit = 1000;
+    uint16 constant COEF_OWNER_PROFIT = 10000;
+&nbsp;
+    constructor(address _USDC, address _WETH) Ownable(msg.sender) {
+        USDC = IERC20(_USDC);
+        WETH = IERC20(_WETH);
+    }
+&nbsp;
+    function setLP(address _LP) external onlyOwner() {
+        ILP = ILiquidityPool(_LP);
+    }
+&nbsp;
+    function setTRA(address _TRA) external onlyOwner() {
+        ITRA = ITraderAccount(_TRA);
+    }
+&nbsp;
+    function setSC(address _SC) external onlyOwner() {
+        SC = _SC;
+    }
+&nbsp;
+    function setOwnerProfit(uint16 _ownerProfit) external onlyOwner() {
+        require(_ownerProfit &lt;= COEF_OWNER_PROFIT, "You cannot accrue more than 100% of the profit!");
+        ownerProfit = _ownerProfit;
+    }
+&nbsp;
+    function approve(address _token, address _account, uint256 _amount) external {
+        require(
+            msg.sender == address(ILP) || msg.sender == address(ITRA) || msg.sender == SC,
+            "Function accessible only by the liquidity pool, swap contract and Trading account !!"
+        );
+        TransferHelper.safeApprove(_token, _account, _amount);
+    }
+&nbsp;
+    function newProfit(uint256 _amount) internal {
+        ILP.accrueProfit(_amount);
+    }
+&nbsp;
+    function newLoss(uint256 _amount) internal {
+        ILP.accrueLoss(_amount);
+    }
+&nbsp;
+    function getTraderDebt(uint256 _amount) external onlyTRA() {
+        uint256 answer = this.availableUSDC();
+        require(answer &gt;= _amount, "At the moment there are not enough free USDC on the contract of the central account, try to call the function later!!!");
+        countUSDCTraders = countUSDCTraders + _amount;
+    }
+&nbsp;
+    function getCountUSDCTraders() external view returns (uint256) {
+        return countUSDCTraders;
+    }
+&nbsp;
+    // profit - true; loss - false
+    function returnTraderDebt(uint256 _amount, uint256 _profitOrLoss, bool _PORL) external onlyTRA() {
+        if (_profitOrLoss == 0) {
+            return;
+        }
+        if (_PORL) {
+            countUSDCOwner = countUSDCOwner + _profitOrLoss * ownerProfit / COEF_OWNER_PROFIT;
+            newProfit(_profitOrLoss * (COEF_OWNER_PROFIT - ownerProfit) / COEF_OWNER_PROFIT);
+        } else {
+            newLoss(_profitOrLoss);
+        }
+        if (countUSDCTraders &lt; _amount) {
+            countUSDCTraders = 0;
+        } else {
+            countUSDCTraders = countUSDCTraders - _amount;
+        }
+    }
+&nbsp;
+    function availableUSDC() public view returns(uint256 answer) {
+        answer = ILP.getBalanceLiquidityPool();
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(answer &gt;= countUSDCTraders, "It is impossible to give traders more money than is in the central account!!!");
+        answer = answer - countUSDCTraders;
+        return answer;
+    }
+&nbsp;
+    function withdraw(uint256 _amount) external onlyOwner() {
+        require(_amount &lt;= countUSDCOwner, "It is impossible to withdraw more than the specified income.");
+        USDC.transfer(msg.sender, _amount);
+    }
+&nbsp;
+    modifier onlyTRA() {
+        require(
+            msg.sender == address(ITRA),
+            "Only the contract trader of the account has the right to receive a debt!!!"
+        );
+        _;
+    }
+&nbsp;
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jan 19 2024 16:43:17 GMT+0800 (Иркутск, стандартное время)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

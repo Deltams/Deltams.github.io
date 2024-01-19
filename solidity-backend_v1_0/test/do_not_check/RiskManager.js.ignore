@@ -1,0 +1,153 @@
+const {
+    time,
+    loadFixture,
+} = require("@nomicfoundation/hardhat-toolbox/network-helpers");
+const {helpers} = require("@nomicfoundation/hardhat-network-helpers");
+const erc20Artifact = require("../artifacts/contracts/TUSDC.sol/TUSDC.json");
+const wethArtifact = require("../artifacts/contracts/TWETH.sol/TWETH.json");
+const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
+const { expect, assert } = require("chai");
+const bigInt = require("big-integer");
+const {ethers,waffle} = require("hardhat");
+
+const CONTRACT_ADDRESSES = {
+    WETH: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+    USDT: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+    ROUTER: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D',
+    QUOTER: '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6',
+    PAIR: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852',
+    USDC: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+  };
+  
+  function getContractInstance(address, artifact, signer) {
+    return new hre.ethers.Contract(address, artifact.abi, signer);
+  }
+
+describe("Проверка RiskManager", function () {
+
+    async function deployLiqudityPool() {
+        const [owner, otherAccount,uniswap] = await ethers.getSigners();
+
+        const TUSDC = await ethers.getContractFactory("TUSDC");
+        const tUSDC = await TUSDC.deploy();
+
+        const TWETH = await ethers.getContractFactory("TWETH");
+        const tWETH = await TWETH.deploy();
+        
+        
+        await tUSDC.transfer(owner, ethers.parseUnits("3000", 6));
+
+        const CA = await ethers.getContractFactory("CentralAccount");
+        const cA = await CA.deploy(await tUSDC.getAddress(), await tWETH.getAddress());
+
+        const amount = ethers.parseUnits("100", 6);
+        const LP = await ethers.getContractFactory("LiquidityPool");
+        const lP = await LP.deploy(await tUSDC.getAddress(), await cA.getAddress(), amount);
+        await cA.connect(owner).setLP(await lP.getAddress());
+
+        const TRA = await ethers.getContractFactory("TraderAccount");
+        const tRA = await TRA.deploy(await tUSDC.getAddress(), await tWETH.getAddress(), await cA.getAddress());
+        await cA.connect(owner).setTRA(await tRA.getAddress());
+
+        const RM = await ethers.getContractFactory("RiskManager");
+        const rM = await RM.deploy(await tRA.getAddress());
+        await tRA.connect(owner).setRiskManager(await rM.getAddress());
+
+        // const SC = await ethers.getContractFactory("SwapContract");
+        const SC = await ethers.getContractFactory("SwapContractTest");
+        const sC = await SC.deploy(await cA.getAddress(), await tRA.getAddress(), await tUSDC.getAddress(), await tWETH.getAddress());
+        await tRA.connect(owner).setSwapContract(await sC.getAddress());
+        await cA.connect(owner).setSC(await sC.getAddress());
+
+        // const CA_for_testing = await ethers.getContractFactory("CentralAccount");
+        // cA_for_testing = await CA_for_testing.deploy(await tUSDC.getAddress(), await tWETH.getAddress());
+
+        // const SC_for_testing = await ethers.getContractFactory("SwapContract");
+        // const sC_for_testing = await SC_for_testing.deploy(await cA_for_testing.getAddress(), uniswap, await tUSDC.getAddress(), await tWETH.getAddress());
+        // await cA_for_testing.connect(owner).setSC(await sC_for_testing.getAddress());
+
+        // await tWETH.connect(uniswap).transfer(await cA_for_testing.getAddress(), ethers.parseEther('1000'));
+        // await sC_for_testing.connect(uniswap).swapWETHToUSDC(ethers.parseEther('500'),0);
+
+        // console.log(await tWETH.balanceOf(await cA_for_testing.getAddress()));
+        // console.log(await tUSDC.balanceOf(await cA_for_testing.getAddress()));
+
+        // await tWETH.connect(owner).transfer(await cA.getAddress(), ethers.parseEther('1000'));
+        // const SC_for_testing = await ethers.getContractFactory("SwapContract");
+        // let sC_for_testing = await SC_for_testing.deploy(await cA.getAddress(), owner, await tUSDC.getAddress(), await tWETH.getAddress());
+        // await cA.connect(owner).setSC(await sC_for_testing.getAddress());
+        // await sC_for_testing.connect(owner).swapWETHToUSDC(ethers.parseEther('500'),0);
+        // await cA.connect(owner).withdraw(ethers.parseUnits('100000',6));
+
+        // await tWETH.connect(owner).transfer(await cA.getAddress(), ethers.parseEther('1000'));
+        // const SC_for_testing = await ethers.getContractFactory("SwapContract");
+        // let sC_for_testing = await SC_for_testing.deploy(await cA.getAddress(), owner, await tUSDC.getAddress(), await tWETH.getAddress());
+        // await cA.connect(owner).setSC(await sC_for_testing.getAddress());
+        // await sC_for_testing.connect(owner).swapWETHToUSDC(ethers.parseEther('500'),0);
+
+        // await tRA.connect(owner).setSwapContract(await sC.getAddress());
+        // await cA.connect(owner).setSC(await sC.getAddress());
+
+        // console.log(await tWETH.balanceOf(await cA.getAddress()));
+        // console.log(await tUSDC.balanceOf(await cA.getAddress()));
+
+        // console.log(await tWETH.balanceOf(owner));
+        // console.log(await tUSDC.balanceOf(owner));
+
+        const amountOtherUSDC = ethers.parseUnits("5000", 6);
+        await tUSDC.transfer(otherAccount.address, amountOtherUSDC); // Переводим другому аккаунту 5000 USDC для дальнейших тестов
+
+        const amountOtherWETH = ethers.parseUnits("5000", 18);
+        await tWETH.transfer(otherAccount.address, amountOtherWETH); // Переводим другому аккаунту 5000 WETH для дальнейших тестов
+
+        const amountOtherWETHSwapContract = ethers.parseUnits("1000", 18);
+        await tWETH.connect(otherAccount).transfer(await sC.getAddress(), amountOtherWETHSwapContract); // Перевод нужен для симуляции пула ликвидности
+
+        const amountOtherUSDCSwapContract = ethers.parseUnits("1000", 6);
+        await tUSDC.connect(otherAccount).transfer(await sC.getAddress(), amountOtherUSDCSwapContract); // Перевод нужен для симуляции пула ликвидности
+
+        return { tUSDC, cA, lP, owner, otherAccount, tWETH, tRA, rM, sC };
+    }
+
+    describe("Проверка трейдера на ликвидацию (checkTraders и eliminate)", function () {
+        it("check hook", async function () {
+            const { tUSDC, cA, lP, owner, otherAccount, tWETH, tRA, rM, sC } = await loadFixture(deployLiqudityPool);
+        });
+        it.only("Получаем список значений HF для трейдеров из диапазона", async function () {
+            const { tUSDC, cA, lP, owner, otherAccount, tWETH, tRA, rM, sC } = await loadFixture(deployLiqudityPool);
+            // Часть симуляции инвесторов и трейдеров
+            const amount = ethers.parseUnits("3100", 6);
+            await tUSDC.connect(owner).approve(lP.getAddress(), amount);
+            await lP.connect(owner).transferToLP(amount);
+            await tUSDC.connect(otherAccount).approve(lP.getAddress(), amount);
+            await lP.connect(otherAccount).transferToLP(amount);
+            const amountTrader = ethers.parseUnits("100", 6);
+            await tUSDC.connect(otherAccount).approve(tRA.getAddress(), amountTrader);
+            await tRA.connect(otherAccount).transferToTraderUSDC(amountTrader);
+            const amountTraderDebt = ethers.parseUnits("100", 6);
+            await tRA.connect(otherAccount).transferDebtFromCA(amountTraderDebt);
+            // Часть симуляции инвесторов и трейдеров
+            // let tr = await rM.checkTraders(ethers.parseUnits("0", 0), ethers.parseUnits("1", 0));
+            // expect(tr[0]).to.equal(ethers.parseUnits("1.5", 4));
+        });
+        // it("Ликвидируем аккаунт по значению HF", async function () {
+        //     const { tUSDC, cA, lP, owner, otherAccount, tWETH, tRA, rM, sC } = await loadFixture(deployLiqudityPool);
+        //     // Часть симуляции инвесторов и трейдеров
+        //     const amount = ethers.parseUnits("3100", 6);
+        //     await tUSDC.connect(owner).approve(lP.getAddress(), amount);
+        //     await lP.connect(owner).transferToLP(amount);
+        //     await tUSDC.connect(otherAccount).approve(lP.getAddress(), amount);
+        //     await lP.connect(otherAccount).transferToLP(amount);
+        //     const amountTrader = ethers.parseUnits("100", 6);
+        //     await tUSDC.connect(otherAccount).approve(tRA.getAddress(), amountTrader);
+        //     await tRA.connect(otherAccount).transferToTraderUSDC(amountTrader);
+        //     const amountTraderDebt = ethers.parseUnits("200", 6);
+        //     await tRA.connect(otherAccount).transferDebtFromCA(amountTraderDebt);
+        //     const amountTraderSwapUSDC = ethers.parseUnits("200", 6);
+        //     await tRA.connect(otherAccount).swapUSDCToWETH(amountTraderSwapUSDC);
+        //     // Часть симуляции инвесторов и трейдеров
+        //     await rM.checkTraders(ethers.parseUnits("0", 0), ethers.parseUnits("1", 0));
+        //     expect(tr[0]).to.equal(ethers.parseUnits("1.5", 4));
+        // });
+    });
+});

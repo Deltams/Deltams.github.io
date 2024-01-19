@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts\TraderAccount.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> TraderAccount.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">81.58% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>31/38</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">88.24% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>30/34</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90.48% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>19/21</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">82.26% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>51/62</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.9;
+&nbsp;
+// Uncomment this line to use console.log
+// import "hardhat/console.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol"; // добавить объект в node_modules yarn add package name
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@uniswap/v3-periphery/contracts/libraries/TransferHelper.sol";
+&nbsp;
+interface IRiskManager {
+    function addTrader(address _trader) external;
+    function deleteTrader(address _trader) external;
+}
+&nbsp;
+interface ICentralAccount {
+    function approve(address _token, address _account, uint256 _amount) external;
+&nbsp;
+    function getTraderDebt(uint256 _amount) external;
+&nbsp;
+    function returnTraderDebt(uint256 _amount, uint256 _profitOrLoss, bool _PORL) external;
+}
+&nbsp;
+interface ISwapContract {
+    function quoteWETHToUSDC(uint256 _amountIn) external view returns(uint256 amountOut);
+&nbsp;
+    function swapUSDCToWETH(uint256 _amountIn, uint256 _amountOutMinimum) external returns(uint256 amountOut);
+&nbsp;
+    function swapWETHToUSDC(uint256 _amountIn, uint256 _amountOutMinimum) external returns(uint256 amountOut);
+}
+&nbsp;
+contract TraderAccount is Ownable {
+    mapping(address =&gt; uint256) traderToUSDC; // trader money in USDC
+    mapping(address =&gt; uint256) traderToWEther; // trader money in Ether
+    mapping(address =&gt; uint256) traderToDebt; // trader Debt money USD
+    mapping(address =&gt; uint256) traderToTime; // at what time did the trader receive the Debt
+    IRiskManager public IRM; // risk manager
+    ISwapContract public ISC; // swap contract
+    ICentralAccount public ICA; // central account
+    IERC20 public USDC; // USDC
+    IERC20 public WETH; // WETH
+    uint16 public debtInterest = 200;
+    uint16 constant HF_DECIMALS = 10 ** 4;
+    uint16 constant COEF_DEBT_INTEREST = 10000;
+    uint8 constant COEF_DEBT = 10;
+    
+&nbsp;
+    constructor(address _USDC, address _WETH, address _CA) Ownable(msg.sender) {
+        USDC = IERC20(_USDC);
+        WETH = IERC20(_WETH);
+        ICA = ICentralAccount(_CA);
+    }
+&nbsp;
+    function setRiskManager(address _RM) external onlyOwner() {
+        IRM = IRiskManager(_RM);
+    }
+&nbsp;
+    function setSwapContract(address _SC) external onlyOwner() {
+        ISC = ISwapContract(_SC);
+    }
+&nbsp;
+    function setDebtInterest(uint16 _newDebtInterest) external onlyOwner() {
+        require(_newDebtInterest &lt;= COEF_DEBT_INTEREST, "You cannot accrue more than 100% of the profit!");
+        debtInterest = _newDebtInterest;
+    }
+&nbsp;
+    // Перед вызовом данной функции необходимо дать разрешение на перевод данному контракту
+    function transferToTraderUSDC(uint256 _amount) external {
+        traderToUSDC[msg.sender] += _amount;
+        transfer(msg.sender, address(ICA), _amount);
+    }
+&nbsp;
+    function transferDebtFromCA(uint256 _amount) external {
+        require(traderToDebt[msg.sender] == 0, "Pay back the debt!");
+        require(traderToUSDC[msg.sender] * COEF_DEBT &gt;= _amount, "It is impossible to receive an amount more than 10 times more than the available funds in the account!");
+        ICA.getTraderDebt(_amount);
+        IRM.addTrader(msg.sender);
+        traderToTime[msg.sender] = block.timestamp;
+        traderToDebt[msg.sender] = _amount;
+        traderToUSDC[msg.sender] += _amount;
+    }
+&nbsp;
+    function transferDebtToCA() external {
+        uint256 _amount = traderToDebt[msg.sender];
+        uint256 profit = _amount * debtInterest / COEF_DEBT_INTEREST;
+        require(traderToUSDC[msg.sender] &gt;= _amount + profit, "There are not enough funds to repay the debt, top up your account or transfer the WETH to the USDC");
+        ICA.returnTraderDebt(_amount, profit, true);
+        IRM.deleteTrader(msg.sender);
+        traderToDebt[msg.sender] = 0;
+        traderToUSDC[msg.sender] = traderToUSDC[msg.sender] - (_amount + profit);
+    }
+&nbsp;
+    function transfer(
+        address _from,
+        address _to,
+        uint256 _amount
+    ) internal {
+        // Transfer the token from the user to the smart contract
+        USDC.transferFrom(_from, _to, _amount);
+    }
+&nbsp;
+    function safeTransferFrom(
+        address _token,
+        address _from,
+        address _to,
+        uint256 _amount
+    ) internal {
+        TransferHelper.safeTransferFrom(_token, _from, _to, _amount);
+    }
+&nbsp;
+    function withdrawUSDC(uint256 _amount) external {
+        require(traderToDebt[msg.sender] == 0, "Pay back the debt");
+        require(traderToUSDC[msg.sender] &gt;= _amount, "Your USDC is less than amount");
+        traderToUSDC[msg.sender] -= _amount;
+        ICA.approve(address(USDC), address(this), _amount);
+        safeTransferFrom(address(USDC), address(ICA), msg.sender, _amount);
+    }
+&nbsp;
+    // This function returns number of tokens in the smart contract
+    function getUserBalanceUSDC() public view returns (uint256) {
+        return traderToUSDC[msg.sender];
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getUserBalanceUSDCWithoutDebt() public view returns (uint256) {</span>
+<span class="cstat-no" title="statement not covered" >        uint256 accountValueUSDC = this.getAccountValueInUSDC(msg.sender);</span>
+<span class="cstat-no" title="statement not covered" >        require(traderToDebt[msg.sender] &lt;=  accountValueUSDC, "The cost of the USDC account is lower than the loan issued!")</span>;
+<span class="cstat-no" title="statement not covered" >        return accountValueUSDC - traderToDebt[msg.sender];</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getUserDebt() public view returns (uint256) {</span>
+<span class="cstat-no" title="statement not covered" >        return traderToDebt[msg.sender];</span>
+    }
+&nbsp;
+    function getUserBalanceWEther() public view returns (uint256) {
+        return traderToWEther[msg.sender];
+    }
+&nbsp;
+    // Получить текущую стоимость аккаунта в USDC
+    function getAccountValueInUSDC(address _trader) public view returns (uint256) {
+        uint256 WETHInUSDC = ISC.quoteWETHToUSDC(traderToWEther[_trader]);
+        return WETHInUSDC + traderToUSDC[_trader]; 
+    }
+&nbsp;
+    // Уничтожить аккаунт и передать деньги CA
+    function eliminate(address _traderKill) external onlyRM() {
+        // перевод денег через Uniswap в USDC
+        uint256 returnUSDC = ISC.swapWETHToUSDC(traderToWEther[_traderKill], traderToWEther[_traderKill]);
+        returnUSDC += traderToUSDC[_traderKill];
+<span class="cstat-no" title="statement not covered" >        if (traderToDebt[_traderKill] &lt;= returnUSDC) {</span>
+<span class="cstat-no" title="statement not covered" >            ICA.returnTraderDebt(traderToDebt[_traderKill], returnUSDC - traderToDebt[_traderKill], true)</span>;
+        } else {
+<span class="cstat-no" title="statement not covered" >            ICA.returnTraderDebt(traderToDebt[_traderKill], traderToDebt[_traderKill] - returnUSDC, false)</span>;
+        }
+        traderToUSDC[_traderKill] = 0;
+        traderToDebt[_traderKill] = 0;
+        traderToWEther[_traderKill] = 0;
+    }
+&nbsp;
+    // Оценка риска ликвидации
+    function getHF(address _trader) external view returns (uint256 _HF) {
+        require(traderToDebt[_trader] &gt; 0, "You have no debt, it is impossible to calculate the risk!");
+        _HF = uint128(this.getAccountValueInUSDC(_trader) * HF_DECIMALS / traderToDebt[_trader]);
+        return _HF; // Если HF &lt;= 1.05 вызывать eliminate
+    }
+&nbsp;
+    // Получить количество дней от взятия кредита
+    function getDayDebt(address _trader) external view returns (uint256 _days) {
+        require(traderToDebt[_trader] &gt; 0, "You have no debts, it is impossible to calculate the time!");
+        _days = (block.timestamp - traderToTime[_trader]) / 60 / 60 / 24;
+        return _days;
+    }
+&nbsp;
+    // перевод USDC в WETH через Uniswap
+    function swapUSDCToWETH(uint256 _amount, uint256 _amountOutMinimum) public {
+        require(_amount &lt;= traderToUSDC[msg.sender], "Not enough USDC");
+        // должна вернуть сумму, полученную в USDC
+        uint256 transferedUSDC = ISC.swapUSDCToWETH(_amount, _amountOutMinimum);
+        traderToUSDC[msg.sender] -= _amount;
+        traderToWEther[msg.sender] += transferedUSDC;
+    }
+&nbsp;
+    // перевод WETH в USDC через Uniswap
+    function swapWETHToUSDC(uint256 _amount, uint256 _amountOutMinimum) public {
+        require(_amount &lt;= traderToWEther[msg.sender], "Not enough WETH");
+        // должна вернуть сумму, полученную в WETH
+        uint256 transferedWETH = ISC.swapWETHToUSDC(_amount, _amountOutMinimum);
+        traderToUSDC[msg.sender] += transferedWETH;
+        traderToWEther[msg.sender] -= _amount;
+    }
+&nbsp;
+    // onlyRM modifier that validates only
+    modifier onlyRM() {
+        require(
+            msg.sender == address(IRM),
+            "Only the contract risk manager has the right to liquidate the account !!"
+        );
+        _;
+    }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jan 19 2024 16:43:17 GMT+0800 (Иркутск, стандартное время)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

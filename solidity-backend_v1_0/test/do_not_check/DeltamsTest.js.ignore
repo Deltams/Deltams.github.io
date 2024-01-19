@@ -1,0 +1,57 @@
+const {
+    time,
+    loadFixture,
+} = require("@nomicfoundation/hardhat-toolbox/network-helpers");
+const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
+const { expect } = require("chai");
+const bigInt = require("big-integer");
+const {ethers} = require("hardhat")
+
+describe("Проверка токена Deltams", function () {
+
+    async function deployDeltamsToken() {
+        const [owner, otherAccount] = await ethers.getSigners();
+
+        const DeltamsToken = await ethers.getContractFactory("DeltamsToken");
+        const deltamsToken = await DeltamsToken.deploy();
+
+        return { deltamsToken, owner, otherAccount };
+    }
+
+    describe("Загрузка контракта", function () {
+        it("Начислено создателю 5000 DEL токенов", async function () {
+            const { deltamsToken, owner } = await loadFixture(deployDeltamsToken);
+            expect(String(await deltamsToken.balanceOf(owner))).to.equal(String(bigInt(5000).multiply(10**18)));
+        });
+
+        it("У другого аккаунта нет монет DEL токен", async function () {
+            const { deltamsToken, otherAccount } = await loadFixture(deployDeltamsToken);
+            expect(String(await deltamsToken.balanceOf(otherAccount))).to.equal(String(bigInt(0)));
+        });
+    });
+
+    describe("Перевод от одного аккаунта другому 50 DEL токенов", function () {
+        it("Назначить другому аккаунту возможность забрать 50 DEL токенов", async function () {
+            const { deltamsToken, owner, otherAccount } = await loadFixture(deployDeltamsToken);
+            await deltamsToken.approve(otherAccount, bigInt(50).multiply(10**18).value);
+            expect(String(await deltamsToken.allowance(owner, otherAccount))).to.equal(String(bigInt(50 * 10**18)));
+        });
+
+        it("Другой аккаунт не давал возможность забрать DEL токены основному аккаунту", async function () {
+            const { deltamsToken, owner, otherAccount } = await loadFixture(deployDeltamsToken);
+            await deltamsToken.approve(otherAccount, bigInt(50).multiply(10**18).value);
+            expect(String(await deltamsToken.allowance(otherAccount, owner))).to.equal(String(bigInt(0)));
+        });
+
+        it("Перевод 50 Del токенов другому аккаунту с разрешением", async function () {
+            const amount = ethers.parseUnits("50", 18);
+            const { deltamsToken, owner, otherAccount } = await loadFixture(deployDeltamsToken);
+            await expect(deltamsToken.approve(otherAccount.address, amount))
+            // console.log(await deltamsToken.allowance(owner.address, otherAccount.address));
+            await deltamsToken.connect(otherAccount).transferFrom(owner.address, otherAccount.address, amount)
+            // await deltamsToken.transfer(otherAccount.address, bigInt(50).multiply(10**18).value);
+            expect(await deltamsToken.balanceOf(owner.address)).to.equal(ethers.parseUnits("4950", 18));
+        });
+    });
+});
+  
