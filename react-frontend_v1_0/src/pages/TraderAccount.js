@@ -60,21 +60,22 @@ export default class TraderAccount extends Component {
     this.abiCA = `[{"inputs":[{"internalType":"address","name":"_USDC","type":"address"},{"internalType":"address","name":"_WETH","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"OwnableInvalidOwner","type":"error"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"OwnableUnauthorizedAccount","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"ILP","outputs":[{"internalType":"contract ILiquidityPool","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"ITRA","outputs":[{"internalType":"contract ITraderAccount","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"USDC","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"WETH","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_token","type":"address"},{"internalType":"address","name":"_account","type":"address"},{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"approve","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"availableUSDC","outputs":[{"internalType":"uint256","name":"answer","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"countUSDCOwner","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"countUSDCTraders","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getCountUSDCTraders","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"getTraderDebt","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"ownerProfit","outputs":[{"internalType":"uint16","name":"","type":"uint16"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"},{"internalType":"uint256","name":"_profitOrLoss","type":"uint256"},{"internalType":"bool","name":"_PORL","type":"bool"}],"name":"returnTraderDebt","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_LP","type":"address"}],"name":"setLP","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint16","name":"_ownerProfit","type":"uint16"}],"name":"setOwnerProfit","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_SC","type":"address"}],"name":"setSC","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_TRA","type":"address"}],"name":"setTRA","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}]`;
     // this.addressTRA = "0x564db7a11653228164fd03bca60465270e67b3d7"; // В тестовой сети Вероника
     // this.addressTRA = "0x5fc8d32690cc91d4c39d9d3abcbd16989f875707"; // В тестовой сети Димитрий
-    this.addressTRA = "0xCC0f61B9Be16F4E7BFb635aaf9Dc42F1DE81B232"; // В основной сети Арбитрум
-    this.abiTRA = `[{"inputs":[{"internalType":"address","name":"_USDC","type":"address"},{"internalType":"address","name":"_WETH","type":"address"},{"internalType":"address","name":"_CA","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"OwnableInvalidOwner","type":"error"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"OwnableUnauthorizedAccount","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"ICA","outputs":[{"internalType":"contract ICentralAccount","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"IRM","outputs":[{"internalType":"contract IRiskManager","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"ISC","outputs":[{"internalType":"contract ISwapContract","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"USDC","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"WETH","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"debtInterest","outputs":[{"internalType":"uint16","name":"","type":"uint16"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_traderKill","type":"address"}],"name":"eliminate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_trader","type":"address"}],"name":"getAccountValueInUSDC","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_trader","type":"address"}],"name":"getDayDebt","outputs":[{"internalType":"uint256","name":"_days","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_trader","type":"address"}],"name":"getHF","outputs":[{"internalType":"uint256","name":"_HF","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getUserBalanceUSDC","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getUserBalanceUSDCWithoutDebt","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getUserBalanceWEther","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getUserDebt","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint16","name":"_newDebtInterest","type":"uint16"}],"name":"setDebtInterest","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_RM","type":"address"}],"name":"setRiskManager","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_SC","type":"address"}],"name":"setSwapContract","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"},{"internalType":"uint256","name":"_amountOutMinimum","type":"uint256"}],"name":"swapUSDCToWETH","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"},{"internalType":"uint256","name":"_amountOutMinimum","type":"uint256"}],"name":"swapWETHToUSDC","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"transferDebtFromCA","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"transferDebtToCA","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"transferToTraderUSDC","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"withdrawUSDC","outputs":[],"stateMutability":"nonpayable","type":"function"}]`;
+    this.addressTRA = "0x0D6C402B00f2d5Afa02050BA53eEA1F69d30911D"; // В основной сети Арбитрум
+    this.abiTRA = `[{"inputs":[{"internalType":"address","name":"_USDC","type":"address"},{"internalType":"address","name":"_WETH","type":"address"},{"internalType":"address","name":"_CA","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"OwnableInvalidOwner","type":"error"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"OwnableUnauthorizedAccount","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"ICA","outputs":[{"internalType":"contract ICentralAccount","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"IRM","outputs":[{"internalType":"contract IRiskManager","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"ISC","outputs":[{"internalType":"contract ISwapContract","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"USDC","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"WETH","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"debtInterest","outputs":[{"internalType":"uint16","name":"","type":"uint16"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_traderKill","type":"address"}],"name":"eliminate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_trader","type":"address"}],"name":"getAccountValueInUSDC","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_trader","type":"address"}],"name":"getDayDebt","outputs":[{"internalType":"uint256","name":"_days","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_trader","type":"address"}],"name":"getHF","outputs":[{"internalType":"uint256","name":"_HF","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getUserBalanceUSDC","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getUserBalanceUSDCWithoutDebt","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getUserBalanceWEther","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getUserDebt","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint16","name":"_newDebtInterest","type":"uint16"}],"name":"setDebtInterest","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_RM","type":"address"}],"name":"setRiskManager","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_SC","type":"address"}],"name":"setSwapContract","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"},{"internalType":"uint256","name":"_amountOutMinimum","type":"uint256"}],"name":"swapUSDCToWETH","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"},{"internalType":"uint256","name":"_amountOutMinimum","type":"uint256"}],"name":"swapWETHToUSDC","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"transferDebtFromCA","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"transferDebtToCA","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"transferToTraderUSDC","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"withdrawUSDC","outputs":[],"stateMutability":"nonpayable","type":"function"}]`;
     // this.addressSC = "0xf8b299f87ebb62e0b625eaf440b73cc6b7717dbd"; // В тестовой сети Вероника
     // this.addressSC = "0x8a791620dd6260079bf849dc5567adc3f2fdc318"; // В тестовой сети Димитрий
-    this.addressSC = "0x82a90Ad338bc5134d0630Ba6A6d029f636621AD6"; // В основной сети Арбитрум
-    this.abiSC = `[{"inputs":[{"internalType":"address","name":"_CA","type":"address"},{"internalType":"address","name":"_TRA","type":"address"},{"internalType":"address","name":"_USDC","type":"address"},{"internalType":"address","name":"_WETH","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"OwnableInvalidOwner","type":"error"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"OwnableUnauthorizedAccount","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"_amountOut","type":"uint256"}],"name":"quotedWETHToUSDC","type":"event"},{"inputs":[],"name":"ICA","outputs":[{"internalType":"contract ICentralAccount","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRA","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"USDC","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"WETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amountIn","type":"uint256"}],"name":"quoteWETHToUSDC","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"quoter","outputs":[{"internalType":"contract IQuoter","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"router","outputs":[{"internalType":"contract ISwapRouter","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"router02","outputs":[{"internalType":"contract UniswapV2Router02","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amountIn","type":"uint256"},{"internalType":"uint256","name":"_amountOutMinimum","type":"uint256"}],"name":"swapUSDCToWETH","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amountIn","type":"uint256"},{"internalType":"uint256","name":"_amountOutMinimum","type":"uint256"}],"name":"swapWETHToUSDC","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"}]`;
+    this.addressSC = "0xED18bF2187b214F988aAaF36Ac41d01E1cb6375F"; // В основной сети Арбитрум
+    this.abiSC = `[{"inputs":[{"internalType":"address","name":"_CA","type":"address"},{"internalType":"address","name":"_TRA","type":"address"},{"internalType":"address","name":"_USDC","type":"address"},{"internalType":"address","name":"_WETH","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"OwnableInvalidOwner","type":"error"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"OwnableUnauthorizedAccount","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"ICA","outputs":[{"internalType":"contract ICentralAccount","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRA","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"USDC","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"WETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amountIn","type":"uint256"}],"name":"quoteWETHToUSDC","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"quoter","outputs":[{"internalType":"contract IQuoter","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"router","outputs":[{"internalType":"contract ISwapRouter","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amountIn","type":"uint256"},{"internalType":"uint256","name":"_amountOutMinimum","type":"uint256"}],"name":"swapUSDCToWETH","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amountIn","type":"uint256"},{"internalType":"uint256","name":"_amountOutMinimum","type":"uint256"}],"name":"swapWETHToUSDC","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"}]`;
     // this.addressRM = "0x484242986f57dfca98eec2c78427931c63f1c4ce"; // В тестовой сети Вероника
     // this.addressRM = "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853"; // В тестовой сети Димитрий
-    this.addressRM = "0x2E935f81B1683bE1227D2A9448C957f378961De8"; // В основной сети Арбитрум
-    this.abiRM = `[{"inputs":[{"internalType":"address","name":"_TRA","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"OwnableInvalidOwner","type":"error"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"OwnableUnauthorizedAccount","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"HF_ELIMINATE","outputs":[{"internalType":"uint16","name":"","type":"uint16"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"ITRA","outputs":[{"internalType":"contract ITraderAccount","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_trader","type":"address"}],"name":"addTrader","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_begin","type":"uint256"},{"internalType":"uint256","name":"_end","type":"uint256"}],"name":"checkTraders","outputs":[{"internalType":"uint256[]","name":"answer","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_begin","type":"uint256"},{"internalType":"uint256","name":"_end","type":"uint256"}],"name":"checkTradersDay","outputs":[{"internalType":"uint256[]","name":"answer","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_trader","type":"address"}],"name":"deleteTrader","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_traderId","type":"uint256"}],"name":"eliminate","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getCountTraders","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint16","name":"_new_HF_ELIMINATE","type":"uint16"}],"name":"setHFEliminate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"}]`;
+    this.addressRM = "0x971564d99098650D853cD621EBa39F969B896c08"; // В основной сети Арбитрум
+    this.abiRM = `[{"inputs":[{"internalType":"address","name":"_TRA","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"OwnableInvalidOwner","type":"error"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"OwnableUnauthorizedAccount","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"HF_ELIMINATE","outputs":[{"internalType":"uint16","name":"","type":"uint16"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"ITRA","outputs":[{"internalType":"contract ITraderAccount","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_trader","type":"address"}],"name":"addTrader","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_begin","type":"uint256"},{"internalType":"uint256","name":"_end","type":"uint256"}],"name":"checkTraders","outputs":[{"internalType":"uint256[]","name":"answer","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_begin","type":"uint256"},{"internalType":"uint256","name":"_end","type":"uint256"}],"name":"checkTradersDay","outputs":[{"internalType":"uint256[]","name":"answer","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_trader","type":"address"}],"name":"deleteTrader","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_traderId","type":"uint256"}],"name":"eliminate","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getCountTraders","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint16","name":"_new_HF_ELIMINATE","type":"uint16"}],"name":"setHFEliminate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"}]`;
 
     this.addressWETH = "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1"; // В основной сети Арбитрум
     this.abiWETH = `[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"allowance","type":"uint256"},{"internalType":"uint256","name":"needed","type":"uint256"}],"name":"ERC20InsufficientAllowance","type":"error"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"uint256","name":"balance","type":"uint256"},{"internalType":"uint256","name":"needed","type":"uint256"}],"name":"ERC20InsufficientBalance","type":"error"},{"inputs":[{"internalType":"address","name":"approver","type":"address"}],"name":"ERC20InvalidApprover","type":"error"},{"inputs":[{"internalType":"address","name":"receiver","type":"address"}],"name":"ERC20InvalidReceiver","type":"error"},{"inputs":[{"internalType":"address","name":"sender","type":"address"}],"name":"ERC20InvalidSender","type":"error"},{"inputs":[{"internalType":"address","name":"spender","type":"address"}],"name":"ERC20InvalidSpender","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]`;
 
     // Делаем привязку к функции контекста this
+    this.reloadDataTraderBalance = this.reloadDataTraderBalance.bind(this);
     this.sendUSDCTraderAccountToCentralAccount =
       this.sendUSDCTraderAccountToCentralAccount.bind(this);
     this.onClose = this.onClose.bind(this);
@@ -150,7 +151,7 @@ export default class TraderAccount extends Component {
     );
     try {
       let value_1 = ethers.formatUnits(
-        (await SwapContract.quoteWETHToUSDC(ethers.parseEther("1"))).toString(),
+        (await SwapContract.quoteWETHToUSDC.staticCall(ethers.parseUnits("1", 18))).toString(),
         6
       );
       console.log(value_1);
@@ -404,7 +405,7 @@ export default class TraderAccount extends Component {
         try {
           // Доступные USDC трейдера на TRA без долга
           userDeposit = ethers.formatUnits(
-            (await TraderAccount.getUserBalanceUSDCWithoutDebt()).toString(),
+            (await TraderAccount.getUserBalanceUSDCWithoutDebt.staticCall()).toString(),
             6
           );
           // console.log("DEBT", this.state.userDEBT);
@@ -506,14 +507,14 @@ export default class TraderAccount extends Component {
         }
         try {
           // Доступные WETH трейдера, оцененные в USDC, на TRA
-          userWETHToUSDC = await SwapContract.quoteWETHToUSDC(userWETH);
+          userWETHToUSDC = await SwapContract.quoteWETHToUSDC.staticCall(userWETH);
         } catch (error) {
           console.log(error);
           errorOccured = true;
         }
         try {
           // Все токены трейдера, оцененные в USDC, на TRA
-          userAllInUSDC = await TraderAccount.getAccountValueInUSDC(
+          userAllInUSDC = await TraderAccount.getAccountValueInUSDC.staticCall(
             this.state.userAccount
           );
 
@@ -525,7 +526,7 @@ export default class TraderAccount extends Component {
             try {
               let HF_eliminate = await RiskManager.HF_ELIMINATE();
               console.log(HF_eliminate);
-              userHF = await TraderAccount.getHF(this.state.userAccount);
+              userHF = await TraderAccount.getHF.staticCall(this.state.userAccount);
 
               if (userDEBT > ethers.parseUnits(this.state.userDeposit, 6)) {
                 userLiquidityPrice = (userAllInUSDC * HF_eliminate) / userHF;
@@ -566,7 +567,7 @@ export default class TraderAccount extends Component {
             userMargin = this.state.userDeposit;
           } else {
             userMargin = ethers.formatUnits(
-              (await TraderAccount.getUserBalanceUSDCWithoutDebt()).toString(),
+              (await TraderAccount.getUserBalanceUSDCWithoutDebt.staticCall()).toString(),
               6
             );
           }
@@ -663,7 +664,7 @@ export default class TraderAccount extends Component {
         try {
           // Доступные USDC трейдера на TRA без долга
           userDeposit = ethers.formatUnits(
-            (await TraderAccount.getUserBalanceUSDCWithoutDebt()).toString(),
+            (await TraderAccount.getUserBalanceUSDCWithoutDebt.staticCall()).toString(),
             6
           );
         } catch (error) {
@@ -673,7 +674,7 @@ export default class TraderAccount extends Component {
 
         try {
           // Все токены трейдера, оцененные в USDC, на TRA
-          userAllInUSDC = await TraderAccount.getAccountValueInUSDC(
+          userAllInUSDC = await TraderAccount.getAccountValueInUSDC.staticCall(
             this.state.userAccount
           );
 
@@ -681,16 +682,19 @@ export default class TraderAccount extends Component {
           userDEBT = await TraderAccount.getUserDebt();
 
           // Доступные WETH трейдера, оцененные в USDC, на TRA
-          userWETHToUSDC = await SwapContract.quoteWETHToUSDC(userWETH);
+          userWETHToUSDC = await SwapContract.quoteWETHToUSDC.staticCall(userWETH);
 
           // Расчет HF и LiquidityPrice только для пользователя с долгом
           if (ethers.formatUnits(userDEBT, 6) !== "0.0") {
             try {
               let HF_eliminate = await RiskManager.HF_ELIMINATE();
-              userHF = await TraderAccount.getHF(this.state.userAccount);
+              userHF = await TraderAccount.getHF.staticCall(this.state.userAccount);
 
               if (userDEBT > ethers.parseUnits(userDeposit, 6)) {
-                userLiquidityPrice = (userAllInUSDC * HF_eliminate) / userHF;
+                userLiquidityPrice = '0';
+                if (userHF > ethers.parseUnits("0", 0)) {
+                  userLiquidityPrice = (userAllInUSDC * HF_eliminate) / userHF;
+                }
                 userLiquidityPrice = ethers.formatUnits(
                   userLiquidityPrice.toString(),
                   6
@@ -816,7 +820,7 @@ export default class TraderAccount extends Component {
         try {
           // Доступные USDC трейдера на TRA без долга
           userDeposit = ethers.formatUnits(
-            (await TraderAccount.getUserBalanceUSDCWithoutDebt()).toString(),
+            (await TraderAccount.getUserBalanceUSDCWithoutDebt.staticCall()).toString(),
             6
           );
         } catch (error) {
@@ -831,7 +835,7 @@ export default class TraderAccount extends Component {
 
         try {
           // Все токены трейдера, оцененные в USDC, на TRA
-          userAllInUSDC = await TraderAccount.getAccountValueInUSDC(
+          userAllInUSDC = await TraderAccount.getAccountValueInUSDC.staticCall(
             this.state.userAccount
           );
 
@@ -839,14 +843,14 @@ export default class TraderAccount extends Component {
           userDEBT = await TraderAccount.getUserDebt();
 
           // Доступные WETH трейдера, оцененные в USDC, на TRA
-          userWETHToUSDC = await SwapContract.quoteWETHToUSDC(userWETH);
+          userWETHToUSDC = await SwapContract.quoteWETHToUSDC.staticCall(userWETH);
 
           // Расчет HF и LiquidityPrice только для пользователя с долгом
           if (ethers.formatUnits(userDEBT, 6) !== "0.0") {
             try {
               let HF_eliminate = await RiskManager.HF_ELIMINATE();
               console.log(HF_eliminate);
-              userHF = await TraderAccount.getHF(this.state.userAccount);
+              userHF = await TraderAccount.getHF.staticCall(this.state.userAccount);
 
               if (userDEBT > ethers.parseUnits(this.state.userDeposit, 6)) {
                 userLiquidityPrice = (userAllInUSDC * HF_eliminate) / userHF;
@@ -1003,7 +1007,7 @@ export default class TraderAccount extends Component {
         try {
           // Доступные USDC трейдера на TRA без долга
           userDeposit = ethers.formatUnits(
-            (await TraderAccount.getUserBalanceUSDCWithoutDebt()).toString(),
+            (await TraderAccount.getUserBalanceUSDCWithoutDebt.staticCall()).toString(),
             6
           );
         } catch (error) {
@@ -1013,24 +1017,24 @@ export default class TraderAccount extends Component {
 
         try {
           // Все токены трейдера, оцененные в USDC, на TRA
-          userAllInUSDC = await TraderAccount.getAccountValueInUSDC(
+          userAllInUSDC = await TraderAccount.getAccountValueInUSDC.staticCall(
             this.state.userAccount
           );
 
-          //userMargin = await TraderAccount.getUserBalanceUSDCWithoutDebt();
+          //userMargin = await TraderAccount.getUserBalanceUSDCWithoutDebt.staticCall();
 
           // Долг трейдера на TRA
           userDEBT = await TraderAccount.getUserDebt();
 
           // Доступные WETH трейдера, оцененные в USDC, на TRA
-          userWETHToUSDC = await SwapContract.quoteWETHToUSDC(userWETH);
+          userWETHToUSDC = await SwapContract.quoteWETHToUSDC.staticCall(userWETH);
 
           // Расчет HF и LiquidityPrice только для пользователя с долгом
           if (ethers.formatUnits(userDEBT, 6) !== "0.0") {
             try {
               let HF_eliminate = await RiskManager.HF_ELIMINATE();
               console.log(HF_eliminate);
-              userHF = await TraderAccount.getHF(this.state.userAccount);
+              userHF = await TraderAccount.getHF.staticCall(this.state.userAccount);
 
               if (userDEBT > ethers.parseUnits(this.state.userDeposit, 6)) {
                 userLiquidityPrice = (userAllInUSDC * HF_eliminate) / userHF;
@@ -1205,7 +1209,7 @@ export default class TraderAccount extends Component {
         try {
           // Доступные USDC трейдера на TRA без долга
           userDeposit = ethers.formatUnits(
-            (await TraderAccount.getUserBalanceUSDCWithoutDebt()).toString(),
+            (await TraderAccount.getUserBalanceUSDCWithoutDebt.staticCall()).toString(),
             6
           );
         } catch (error) {
@@ -1215,24 +1219,24 @@ export default class TraderAccount extends Component {
 
         try {
           // Все токены трейдера, оцененные в USDC, на TRA
-          userAllInUSDC = await TraderAccount.getAccountValueInUSDC(
+          userAllInUSDC = await TraderAccount.getAccountValueInUSDC.staticCall(
             this.state.userAccount
           );
 
-          //userMargin = await TraderAccount.getUserBalanceUSDCWithoutDebt();
+          //userMargin = await TraderAccount.getUserBalanceUSDCWithoutDebt.staticCall();
 
           // Долг трейдера на TRA
           userDEBT = await TraderAccount.getUserDebt();
 
           // Доступные WETH трейдера, оцененные в USDC, на TRA
-          userWETHToUSDC = await SwapContract.quoteWETHToUSDC(userWETH);
+          userWETHToUSDC = await SwapContract.quoteWETHToUSDC.staticCall(userWETH);
 
           // Расчет HF и LiquidityPrice только для пользователя с долгом
           if (ethers.formatUnits(userDEBT, 6) !== "0.0") {
             try {
               let HF_eliminate = await RiskManager.HF_ELIMINATE();
               console.log(HF_eliminate);
-              userHF = await TraderAccount.getHF(this.state.userAccount);
+              userHF = await TraderAccount.getHF.staticCall(this.state.userAccount);
 
               if (userDEBT > ethers.parseUnits(this.state.userDeposit, 6)) {
                 userLiquidityPrice = (userAllInUSDC * HF_eliminate) / userHF;
@@ -1313,19 +1317,45 @@ export default class TraderAccount extends Component {
     }
   }
 
+  async reloadDataTraderBalance() {
+      if (this.state.userAccount !== "") {
+          const provider = new ethers.BrowserProvider(window.ethereum);
+          const signer = await provider.getSigner();
+          const TraderAccountContract = new ethers.Contract(
+              this.addressTRA,
+              this.abiTRA,
+              signer
+          );
+          try {
+              this.setState({ 
+                currentAvailableWETH: ethers.formatUnits((await TraderAccountContract.getUserBalanceWEther()).toString(), 18),
+                currentAvailable: ethers.formatUnits((await TraderAccountContract.getUserBalanceUSDC()).toString(), 6) 
+              });
+          } catch (err) {
+              console.log(err.message);
+              // this.onToastUser("Failed to send USDC to the Liquidity pool!", true);
+          }
+      } else {
+          console.log("Connect MetaMask!");
+      }
+  }
+
   async componentDidMount() {
     if (window.ethereum) {
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
       this.setState({ userAccount: accounts[0] });
-      // this.getCurrentQuoteWETHToUSDC();
+      this.getCurrentQuoteWETHToUSDC();
       // this.getCurrentMarginLevel();
       this.getCurrentAvailable();
       this.getCurrentAvailableWETH();
       this.getUserBalanceUSDC();
       this.getUserMargin();
       this.updatePositionWETH();
+      setInterval(() => this.getCurrentQuoteWETHToUSDC(), 5000);
+      setInterval(() => this.reloadDataTraderBalance(), 6000);
+      setInterval(() => this.updatePositionWETH(), 5000);
     } else {
       console.log("Connect MetaMask!");
     }
