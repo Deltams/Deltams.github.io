@@ -677,8 +677,6 @@ export default class TraderAccount extends Component {
             this.state.userAccount
           );
 
-          //userMargin = await TraderAccount.getUserBalanceUSDCWithoutDebt();
-
           // Долг трейдера на TRA
           userDEBT = await TraderAccount.getUserDebt();
 
@@ -689,20 +687,16 @@ export default class TraderAccount extends Component {
           if (ethers.formatUnits(userDEBT, 6) !== "0.0") {
             try {
               let HF_eliminate = await RiskManager.HF_ELIMINATE();
-              // console.log(HF_eliminate);
               userHF = await TraderAccount.getHF(this.state.userAccount);
 
               if (userDEBT > ethers.parseUnits(userDeposit, 6)) {
                 userLiquidityPrice = (userAllInUSDC * HF_eliminate) / userHF;
-                // console.log(userLiquidityPrice);
-                // console.log(userHF);
-                // console.log(HF_eliminate);
                 userLiquidityPrice = ethers.formatUnits(
                   userLiquidityPrice.toString(),
                   6
                 );
 
-                currentMarginLevel = userHF - ethers.formatUnits("1", 4);
+                currentMarginLevel = userHF - ethers.parseUnits("1", 4);
                 currentMarginLevel = ethers.formatUnits(
                   currentMarginLevel.toString(),
                   2
