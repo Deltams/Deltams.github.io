@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 interface ITraderAccount {
     function eliminate(address _traderKill) external;
 
-    function getHF(address _trader) external view returns (uint256 _HF);
+    function getHF(address _trader) external returns (uint256 _HF);
 
     function getDayDebt(address _trader) external view returns (uint256 _days);
 }
@@ -31,7 +31,7 @@ contract RiskManager is Ownable {
         return traders.length;
     }
 
-    function checkTraders(uint256 _begin, uint256 _end) external view returns (uint256[] memory answer) {
+    function checkTraders(uint256 _begin, uint256 _end) external returns (uint256[] memory answer) {
         require(_begin < _end, "Going beyond the boundaries of the array");
         require(traders.length >= _end, "Going beyond the boundaries of the array");
         answer = new uint256[](_end - _begin);
