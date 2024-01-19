@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-import "@uniswap/v2-periphery/contracts/UniswapV2Router02.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@uniswap/v3-periphery/contracts/libraries/TransferHelper.sol";
 import "@uniswap/v3-periphery/contracts/interfaces/IQuoter.sol";
 import "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
 
@@ -18,7 +18,6 @@ contract SwapContract is Ownable {
     address public TRA; //trader account
     address public USDC; // USDC
     address public WETH; // WETH
-    UniswapV2Router02 public constant router02 = UniswapV2Router02(payable(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D));
 
     constructor(address _CA, address _TRA, address _USDC, address _WETH) Ownable(msg.sender) {
         ICA = ICentralAccount(_CA);
@@ -27,19 +26,13 @@ contract SwapContract is Ownable {
         WETH = _WETH;
     }
 
-    function quoteWETHToUSDC(uint256 _amountIn) external view returns(uint256) {
+    function quoteWETHToUSDC(uint256 _amountIn) external returns(uint256) {
         
         if(_amountIn == 0){
             return 0;
         }
 
-        address[] memory arr = new address[](2);
-        arr[0] = WETH;
-        arr[1] = USDC;
-        return router02.getAmountsOut(
-          _amountIn,
-          arr
-        )[1];
+        return quoter.quoteExactInputSingle(WETH, USDC, 500, _amountIn, 0);
     }
 
     function swapWETHToUSDC(uint256 _amountIn, uint256 _amountOutMinimum) external returns(uint256 amountOut) {
